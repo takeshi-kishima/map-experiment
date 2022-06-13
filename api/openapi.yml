@@ -4,7 +4,7 @@ info:
   title: サンプル
   description: サンプルです。はい
 servers:
-  - url: http://localhost:8083
+  - url: http://localhost:8003
     description: "モック"
 paths:
   /pets:
