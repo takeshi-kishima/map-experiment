@@ -21,7 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "openapi": "openapi -i ./api/openapi.yml -o ./src/generated -c fetch"
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +43,7 @@
     ]
   },
   "devDependencies": {
-    "@types/google.maps": "^3.49.2"
+    "@types/google.maps": "^3.49.2",
+    "openapi-typescript-codegen": "^0.23.0"
   }
 }

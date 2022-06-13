@@ -8,6 +8,9 @@ import {
   cloneElement,
 } from "react";
 
+// openapiを使ってみる
+import { DefaultService } from '../generated/services/DefaultService';
+
 interface MapProps extends google.maps.MapOptions {
   style: { [key: string]: string };
   onClick: (e: google.maps.MapMouseEvent) => void;
@@ -45,6 +48,14 @@ const Map: React.FC<MapProps> = (props) => {
       props.setMainMap(map);
       console.log("============================");
     }
+
+    // openapiを呼んでみるだけ
+    const access_db = async () => {
+      const response = await DefaultService.findPets(["aaaa", "bbbb"], 4);
+      console.log(response);
+    };
+    access_db();
+    
   }, [ref, map]);
 
   return (
