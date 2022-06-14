@@ -4,6 +4,13 @@ import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import Map from "./google/Map";
 import Marker from "./google/Marker";
 import InfoWindow from "./google/InfoWindow";
+import { SpeedDial, SpeedDialIcon, SpeedDialAction, Fab, Drawer } from "@mui/material";
+import FileCopyIcon from "@mui/icons-material/FileCopyOutlined";
+import SaveIcon from "@mui/icons-material/Save";
+import PrintIcon from "@mui/icons-material/Print";
+import ShareIcon from "@mui/icons-material/Share";
+import PestControlRodentIcon from "@mui/icons-material/PestControlRodent";
+import StickyHeadTable from "./components/table";
 
 function App() {
   // （ページからの文章）Wrapper コンポーネントは、読み込みコンポーネントのレンダリング、または Maps JavaScript API の読み込みエラーの処理を行う render プロパティも受け入れます。
@@ -11,7 +18,7 @@ function App() {
     return <h1>{status}</h1>;
   };
 
-  // ★
+  // グーグルマップ
   const [mainMap, setMainMap] = useState<google.maps.Map>();
 
   // クリックした場所の保持、マーカーをつけるのに使ってる
@@ -52,13 +59,22 @@ function App() {
       setInfo(undefined);
     }
   };
+  // Material-UIを追加した部分
+  const actions = [
+    { icon: <FileCopyIcon />, name: 'Copy' },
+    { icon: <SaveIcon />, name: 'Save' },
+    { icon: <PrintIcon />, name: 'Print' },
+    { icon: <ShareIcon />, name: 'Share' },
+  ];
+  const [drow, setDrow] = useState(false);
+
   return (
     <>
       {/* （ページからの文章）このコンポーネントの基本的な使用方法は、Maps JavaScript API に依存する子コンポーネントをラップすることです。 */}
       <Wrapper apiKey={process.env.REACT_APP_API_KEY ?? ""} render={render}>
         {/* googleMapのコンポーネントはこれです */}
         <Map
-          style={{ width: "100vw", height: "90vh" }}
+          style={{ width: "100vw", height: "100vh" }}
           onClick={onClick}
           onIdle={onIdle}
           setMainMap={setMainMap}
@@ -78,42 +94,66 @@ function App() {
 
           {/* 情報ウィンドウのコンポーネントはこれです */}
           {info && (
-              <InfoWindow
-                key={"map:" + info.lat() + ":" + info.lng()}
-                position={info}
-                pixelOffset={new google.maps.Size(0, -30)}
-                content={`
+            <InfoWindow
+              key={"map:" + info.lat() + ":" + info.lng()}
+              position={info}
+              pixelOffset={new google.maps.Size(0, -30)}
+              content={`
                   <div class="window">InfoWindow内のテキスト</div>
                   <br/>
                   <img src="${process.env.PUBLIC_URL}/logo192.png" />
                   <div>そのとおり</div>
                 `}
-                func={infoWindowNoBasho}
-                mainMap={mainMap!}
-                isStreet={false}
-              />
+              func={infoWindowNoBasho}
+              mainMap={mainMap!}
+              isStreet={false}
+            />
           )}
           {/* 情報ウィンドウのコンポーネント、ストリートビュー用はこっち */}
           {info && (
-              <InfoWindow
-                key={"street:" + info.lat() + ":" + info.lng()}
-                position={info}
-                pixelOffset={new google.maps.Size(0, -30)}
-                content={`
+            <InfoWindow
+              key={"street:" + info.lat() + ":" + info.lng()}
+              position={info}
+              pixelOffset={new google.maps.Size(0, -30)}
+              content={`
                   <div class="window">InfoWindow内のテキスト</div>
                   <br/>
                   <img src="${process.env.PUBLIC_URL}/logo192.png" />
                   <div>まちの写真</div>
                 `}
-                func={infoWindowNoBasho}
-                mainMap={mainMap!}
-                isStreet={true}
-              />
+              func={infoWindowNoBasho}
+              mainMap={mainMap!}
+              isStreet={true}
+            />
           )}
 
         </Map>
-        <label htmlFor="lat">{clicks[clicks.length - 1]?.lat() ?? 0}</label>
       </Wrapper>
+
+      {/* Material-UIを追加した部分 */}
+      <SpeedDial
+        ariaLabel="SpeedDial basic example"
+        sx={{ position: 'absolute', bottom: 25, right: 70 }}
+        icon={<SpeedDialIcon />}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+          />
+        ))}
+      </SpeedDial>
+      <Fab color="warning" aria-label="edit" onClick={() => setDrow(true)} sx={{ position: 'absolute', bottom: 25, right: 140 }}>
+        <PestControlRodentIcon />
+      </Fab>
+      <Drawer
+        anchor={"bottom"}
+        open={drow}
+        onClose={() => setDrow(false)}
+      >
+        <StickyHeadTable />
+      </Drawer>
     </>
   );
 }

@@ -29,6 +29,7 @@ const Map: React.FC<MapProps> = (props) => {
         new window.google.maps.Map(ref.current, {
           center: props.center,
           zoom: props.zoom,
+          fullscreenControl: false,
         })
       );
     }
