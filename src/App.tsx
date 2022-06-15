@@ -4,7 +4,7 @@ import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import Map from "./google/Map";
 import Marker from "./google/Marker";
 import InfoWindow from "./google/InfoWindow";
-import { SpeedDial, SpeedDialIcon, SpeedDialAction, Fab, Drawer } from "@mui/material";
+import { SpeedDial, SpeedDialIcon, SpeedDialAction, Fab, Drawer, Button } from "@mui/material";
 import FileCopyIcon from "@mui/icons-material/FileCopyOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import PrintIcon from "@mui/icons-material/Print";
@@ -59,6 +59,10 @@ function App() {
       setInfo(undefined);
     }
   };
+  const delMark = (latLng: google.maps.LatLng) => {
+    setClicks((pre) => pre.filter((cli) => cli !== latLng));
+    setInfo(undefined);
+  };
   // Material-UIを追加した部分
   const actions = [
     { icon: <FileCopyIcon />, name: 'Copy' },
@@ -91,7 +95,6 @@ function App() {
               func={infoWindowNoBasho}
             />
           ))}
-
           {/* 情報ウィンドウのコンポーネントはこれです */}
           {info && (
             <InfoWindow
@@ -103,6 +106,7 @@ function App() {
                   <br/>
                   <img src="${process.env.PUBLIC_URL}/logo192.png" />
                   <div>そのとおり</div>
+                  <button onClick="document.getElementById('kususu').click()">削除</button>
                 `}
               func={infoWindowNoBasho}
               mainMap={mainMap!}
@@ -126,10 +130,9 @@ function App() {
               isStreet={true}
             />
           )}
-
+          {info && (<Button id="kususu" onClick={() => delMark(info)} sx={{ display: "none" }} />)}
         </Map>
       </Wrapper>
-
       {/* Material-UIを追加した部分 */}
       <SpeedDial
         ariaLabel="SpeedDial basic example"
