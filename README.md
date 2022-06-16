@@ -6,7 +6,7 @@
 を使います
 
 ### [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-VScodeの拡張機能です。コマンド
+VScodeの拡張機能です。F1 >
 ```
 Reopen in Container
 ```
