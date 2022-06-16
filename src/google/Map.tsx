@@ -53,10 +53,11 @@ const Map: React.FC<MapProps> = (props) => {
     // openapiを呼んでみるだけ
     const access_db = async () => {
       const response = await DefaultService.findPets(["aaaa", "bbbb"], 4);
-      console.log(response);
+      console.log("帰ってきたのは：", response);
     };
     access_db();
     
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref, map]);
 
   return (
