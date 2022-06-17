@@ -20,6 +20,7 @@ const InfoWindow: React.FC<InfoWinProps> = (options) => {
         infoWindow.close();
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [infoWindow]);
 
   useEffect(() => {

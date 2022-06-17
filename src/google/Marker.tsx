@@ -25,6 +25,7 @@ const Marker: React.FC<MarkerProps> = (options) => {
         marker.setMap(null);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [marker]);
 
   useEffect(() => {

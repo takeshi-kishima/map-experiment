@@ -56,8 +56,8 @@ const Map: React.FC<MapProps> = (props) => {
       console.log("帰ってきたのは：", response);
     };
     access_db();
-    
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref, map]);
 
   return (
