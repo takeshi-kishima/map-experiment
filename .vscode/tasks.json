@@ -1,0 +1,39 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "prettier",
+      "type": "shell",
+      "command": "code --install-extension esbenp.prettier-vscode"
+    },
+    {
+      "label": "dbaeumer.vscode-eslint",
+      "type": "shell",
+      "command": "code --install-extension dbaeumer.vscode-eslint"
+    },
+    {
+      "label": "ms-vscode.vscode-typescript-next",
+      "type": "shell",
+      "command": "code --install-extension ms-vscode.vscode-typescript-next"
+    },
+    {
+      "label": "christian-kohler.path-intellisense",
+      "type": "shell",
+      "command": "code --install-extension christian-kohler.path-intellisense"
+    },
+    {
+      "label": "拡張機能のインストール",
+      "type": "shell",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "prettier",
+        "dbaeumer.vscode-eslint",
+        "ms-vscode.vscode-typescript-next",
+        "christian-kohler.path-intellisense"
+      ],
+      "command": "echo 終了"
+    }
+  ]
+}
