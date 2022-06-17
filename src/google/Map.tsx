@@ -22,6 +22,11 @@ interface MapProps extends google.maps.MapOptions {
 const Map: React.FC<MapProps> = (props) => {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
+  // openapiを呼んでみるだけ
+  const access_db = async () => {
+    const response = await DefaultService.findPets(["aaaa", "bbbb"], 4);
+    console.log("帰ってきたのは：", response);
+  };
 
   useEffect(() => {
     if (ref.current && !map) {
@@ -48,14 +53,8 @@ const Map: React.FC<MapProps> = (props) => {
       // みんなが見える所に置く
       props.setMainMap(map);
       console.log("============================");
+      access_db();
     }
-
-    // openapiを呼んでみるだけ
-    const access_db = async () => {
-      const response = await DefaultService.findPets(["aaaa", "bbbb"], 4);
-      console.log("帰ってきたのは：", response);
-    };
-    access_db();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref, map]);
