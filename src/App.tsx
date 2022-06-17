@@ -11,6 +11,7 @@ import PrintIcon from "@mui/icons-material/Print";
 import ShareIcon from "@mui/icons-material/Share";
 import PestControlRodentIcon from "@mui/icons-material/PestControlRodent";
 import StickyHeadTable from "./components/table";
+import { useAppHook } from "./hooks";
 
 function App() {
   // （ページからの文章）Wrapper コンポーネントは、読み込みコンポーネントのレンダリング、または Maps JavaScript API の読み込みエラーの処理を行う render プロパティも受け入れます。
@@ -18,51 +19,19 @@ function App() {
     return <h1>{status}</h1>;
   };
 
-  // グーグルマップ
-  const [mainMap, setMainMap] = useState<google.maps.Map>();
+  const {
+    mainMap,
+    setMainMap,
+    clicks,
+    zoom,
+    center,
+    info,
+    onMapClick,
+    onMapIdle,
+    infoWindowNoBasho,
+    delMark,
+  } = useAppHook();
 
-  // クリックした場所の保持、マーカーをつけるのに使ってる
-  const [clicks, setClicks] = useState<google.maps.LatLng[]>([]);
-  // ズーム
-  const [zoom, setZoom] = useState(17);
-  // 位置
-  const [center, setCenter] = useState<google.maps.LatLngLiteral>({
-    lat: 33.589778752053945,
-    lng: 130.42031701851525,
-  });
-  // 情報ウィンドウの場所の保持
-  const [info, setInfo] = useState<google.maps.LatLng | undefined>(undefined);
-
-  // マップのクリックイベント。場所の保持してる
-  const onClick = (e: google.maps.MapMouseEvent) => {
-    // avoid directly mutating state
-    setClicks((prevClicks) => [...prevClicks, e.latLng!]);
-    setInfo(undefined);
-  };
-  // マップのアイドル時のイベント。ズームと位置を保持している
-  const onIdle = (m: google.maps.Map) => {
-    console.log("onIdle");
-    setZoom((prevZoom) => {
-      console.log("prevZoom", prevZoom);
-      return m.getZoom()!;
-    });
-    setCenter((prevCenter) => {
-      console.log("prevCenter", prevCenter);
-      return m.getCenter()!.toJSON();
-    });
-  };
-  // 情報ウィンドウの表示位置を保持したり消したり
-  const infoWindowNoBasho = (e: google.maps.MapMouseEvent | undefined) => {
-    if (e) {
-      setInfo(e.latLng!);
-    } else {
-      setInfo(undefined);
-    }
-  };
-  const delMark = (latLng: google.maps.LatLng) => {
-    setClicks((pre) => pre.filter((cli) => cli !== latLng));
-    setInfo(undefined);
-  };
   // Material-UIを追加した部分
   const actions = [
     { icon: <FileCopyIcon />, name: 'Copy' },
@@ -79,8 +48,8 @@ function App() {
         {/* googleMapのコンポーネントはこれです */}
         <Map
           style={{ width: "100vw", height: "100vh" }}
-          onClick={onClick}
-          onIdle={onIdle}
+          onClick={onMapClick}
+          onIdle={onMapIdle}
           setMainMap={setMainMap}
           center={center}
           zoom={zoom}
