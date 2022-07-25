@@ -17,7 +17,7 @@ Remote-Containers: Open Folder in Container...
 
 ### OpenAPI (Swagger)
 OpenAPIのDockerコンテナが立ち上がっております
-| コンテナ| エンドポイント |
+| コンテナ| ホスト:ポート |
 | ---- | ---- |
 | swagger-editor                   | localhost:8001 |
 | swagger-ui                       | localhost:8002 |
