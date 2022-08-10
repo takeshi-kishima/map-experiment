@@ -15,7 +15,6 @@ interface MapProps extends google.maps.MapOptions {
   style: { [key: string]: string };
   onClick: (e: google.maps.MapMouseEvent) => void;
   onIdle: (map: google.maps.Map) => void;
-  setMainMap: (map: google.maps.Map) => void;
   children?: ReactNode;
 }
 
@@ -50,8 +49,6 @@ const Map: React.FC<MapProps> = (props) => {
       if (props.onIdle) {
         map.addListener("idle", () => props.onIdle(map));
       }
-      // みんなが見える所に置く
-      props.setMainMap(map);
       console.log("============================");
       access_db();
     }

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 interface InfoWinProps extends google.maps.InfoWindowOptions {
   func: (e: google.maps.MapMouseEvent | undefined) => void;
-  mainMap: google.maps.Map;
+  map?: google.maps.Map;
   isStreet: boolean;
 }
 
@@ -27,9 +27,9 @@ const InfoWindow: React.FC<InfoWinProps> = (options) => {
     if (infoWindow) {
       infoWindow.setOptions(options);
       if (options.isStreet) {
-        infoWindow.open(options.mainMap.getStreetView());
+        infoWindow.open(options.map?.getStreetView());
       } else {
-        infoWindow.open(options.mainMap);
+        infoWindow.open(options.map);
       }
     }
   }, [infoWindow, options]);

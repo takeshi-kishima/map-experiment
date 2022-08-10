@@ -1,8 +1,6 @@
 import { useState } from "react";
 
 export const useAppHook = () => {
-  // グーグルマップ
-  const [mainMap, setMainMap] = useState<google.maps.Map>();
   // クリックした場所の保持、マーカーをつけるのに使ってる
   const [clicks, setClicks] = useState<(google.maps.LatLng | null)[]>([]);
   // ズーム
@@ -44,8 +42,6 @@ export const useAppHook = () => {
   };
 
   return {
-    mainMap,
-    setMainMap,
     clicks,
     zoom,
     center,

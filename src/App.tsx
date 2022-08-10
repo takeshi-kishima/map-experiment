@@ -20,8 +20,6 @@ function App() {
   };
 
   const {
-    mainMap,
-    setMainMap,
     clicks,
     zoom,
     center,
@@ -50,7 +48,6 @@ function App() {
           style={{ width: "100vw", height: "100vh" }}
           onClick={onMapClick}
           onIdle={onMapIdle}
-          setMainMap={setMainMap}
           center={center}
           zoom={zoom}
         >
@@ -78,7 +75,6 @@ function App() {
                   <button onClick="document.getElementById('kususu').click()">削除</button>
                 `}
               func={infoWindowNoBasho}
-              mainMap={mainMap!}
               isStreet={false}
             />
           )}
@@ -95,7 +91,6 @@ function App() {
                   <div>まちの写真</div>
                 `}
               func={infoWindowNoBasho}
-              mainMap={mainMap!}
               isStreet={true}
             />
           )}
