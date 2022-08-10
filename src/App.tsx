@@ -57,9 +57,9 @@ function App() {
           {/* マーカーを設置している場所です */}
           {clicks.map((latLng, i) => (
             <Marker
-              key={latLng.lat() + ":" + latLng.lng()}
+              key={latLng?.lat() + ":" + latLng?.lng()}
               position={latLng}
-              title={latLng.lat() + ":" + latLng.lng()}
+              title={latLng?.lat() + ":" + latLng?.lng()}
               label={"わわわわーーー"}
               func={infoWindowNoBasho}
             />

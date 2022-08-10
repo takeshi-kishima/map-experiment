@@ -4,7 +4,7 @@ export const useAppHook = () => {
   // グーグルマップ
   const [mainMap, setMainMap] = useState<google.maps.Map>();
   // クリックした場所の保持、マーカーをつけるのに使ってる
-  const [clicks, setClicks] = useState<google.maps.LatLng[]>([]);
+  const [clicks, setClicks] = useState<(google.maps.LatLng | null)[]>([]);
   // ズーム
   const [zoom, setZoom] = useState(17);
   // 位置
@@ -13,12 +13,12 @@ export const useAppHook = () => {
     lng: 130.42031701851525,
   });
   // 情報ウィンドウの場所の保持
-  const [info, setInfo] = useState<google.maps.LatLng | undefined>(undefined);
+  const [info, setInfo] = useState<google.maps.LatLng | null | undefined>(undefined);
 
   // マップのクリックイベント。場所の保持してる
   const onMapClick = (e: google.maps.MapMouseEvent) => {
     // avoid directly mutating state
-    setClicks((prevClicks) => [...prevClicks, e.latLng!]);
+    setClicks((prevClicks) => [...prevClicks, e.latLng]);
     setInfo(undefined);
   };
   // マップのアイドル時のイベント。ズームと位置を保持している
@@ -35,7 +35,7 @@ export const useAppHook = () => {
   };
   // 情報ウィンドウの表示位置を保持したり消したり
   const infoWindowNoBasho = (e: google.maps.MapMouseEvent | undefined) => {
-      setInfo(e?.latLng!);
+      setInfo(e?.latLng);
   };
   // 対処のマーカーを削除する
   const delMark = (latLng: google.maps.LatLng) => {
